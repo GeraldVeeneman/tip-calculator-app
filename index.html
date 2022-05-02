@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+    
+    <!-- JavaScript file -->
+    <!-- <script type = "text/javascript" src="/js/functions.js"></script>   -->
+
+    <title>Frontend Mentor | Tip calculator app</title>
+  </head>
+  <body>
+
+    <div class="container">
+      <!-- TODO Header element toevoegen -->
+      <div class="logo"><img src="images/logo.svg" alt="Splitter logo" /></div>
+
+      <!-- TODO main element toevoegen -->
+      <!-- <main> -->
+
+        <form novalidate class="calculator">
+
+          <div class="input">
+
+            <div class="bill">
+              <label for="bill" class="bill__label">Bill
+                <span class="error" aria-live="polite"></span>
+              </label>
+              <img src="images/icon-dollar.svg" alt="dollar icon" class="bill__icon" />              
+              <input type="number" step="any" min="0" value="0" id="bill" class="bill__input" required />
+            </div>
+
+            <div class="tip">
+              <label for="custom-tip" class="tip__label">Select Tip %<span class="error" aria-live="polite"></span></label>
+
+              <div class="tip__buttons">
+                <button type="button" class="tip__button" value="5">5%</button>
+                <button type="button" class="tip__button" value="10">10%</button>
+                <button type="button" class="tip__button" value="15">15%</button>
+                <button type="button" class="tip__button" value="25">25%</button>
+                <button type="button" class="tip__button" value="50">50%</button>
+                <input type="number" step="any" min="0" placeholder="Custom" id="custom-tip" class="tip__button--custom" /> <!-- TODO validation custom-tip -->
+              </div>
+            </div>
+
+            <div class="num-of-people">
+              <label for="num-of-people" class="num-of-people__label">Number of People
+                <span class="error" aria-live="polite"></span>
+              </label>
+              <img src="images/icon-person.svg" alt="person icon" class="num-of-people__icon" />
+              
+              <input type="number" step="1" min="1" value=1 id="num-of-people" class="num-of-people__input" required /> <!-- TODO validation num-of-people -->
+            </div>
+          </div>
+          <!-- End div input -->
+
+          <div class="results">
+
+            <div class="results__tip-amount">
+              <label for="tip-amount" class="tip-amount__label">Tip Amount<br/><span>/ person</span></label>
+              <output id="tip-amount" class="tip-amount__value">$0.00</output>
+            </div>
+
+            <div class="results__total">
+              <label for="total" class="total__label">Total<br/><span>/ person</span></label>
+              <output id="total" class="total__value">$0.00</output>
+            </div>
+
+            <div class="results__reset">
+              <button type="reset" class="results__reset-button">Reset</button>
+            </div>
+
+          </div> <!-- End div results -->
+
+        </form>
+
+      <!-- </main> -->
+
+    </div> <!-- End div container -->
+
+    <script src="js/functions.js"></script>
+  </body>
+</html>
