@@ -81,7 +81,8 @@ tips.forEach(item => {
     calculate();
   })
 })
-
+// Reset button
+// Sets all fields to default value and removes active classes from tip buttons and custom tip
 resetButton.addEventListener("click", function () {
   bill.value = 0;
   numOfPeople.value=1;
@@ -89,38 +90,12 @@ resetButton.addEventListener("click", function () {
   tips.forEach(val => {
     val.classList.remove("active");
   });
+  customTip.classList.remove("active");
   customTip.value = "";
   tipAmount.textContent = "$0.00";
   total.textContent = "$0.00";
 });
 
-
-// document.addEventListener("click", (e) => {
-//   let element = e.target;
-//   // Only add active class to clicked button
-//   if (element.type == "button") {
-//     tips.forEach(val => {
-//       val.classList.remove("active");
-//       if (element.innerHTML == val.innerHTML) {
-//         val.classList.add("active");
-//         tipPercentage = `${element.value}`;
-//       }
-//     });
-//     calculate();
-
-//     // Reset all form fields if reset button has been clicked
-//   } else if (element.type == "reset") {
-//     bill.value=0;
-//     numOfPeople.value=1;
-//     tipPercentage = 0;
-//     tips.forEach(val => {
-//       val.classList.remove("active");
-//     });
-//     customTip.value = "";
-//     tipAmount.textContent = "$0.00";
-//     total.textContent = "$0.00";
-//   }
-// });
 
 function showError(focusedElement, errorMessage) {
   
@@ -133,10 +108,11 @@ function showError(focusedElement, errorMessage) {
     // display the following error message.
     errorMessage.textContent = "Value needs to be a number.";
   } else if (focusedElement.value == 0) {
-      // If the amount is 0
-      errorMessage.textContent = "Can't be zero.";
+    // If the amount is 0
+    // display the following error message.
+    errorMessage.textContent = "Can't be zero.";
   } else if (focusedElement.validity.rangeUnderflow) {
-    // If the amonut is below 0,
+    // If the amonut is below minimum,
     // display the following error message.
     errorMessage.textContent = `Value should be at least  ${focusedElement.min}.`;
   }
