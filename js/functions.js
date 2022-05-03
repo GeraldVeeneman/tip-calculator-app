@@ -11,7 +11,7 @@ const resetButton = document.getElementById('reset-button');
 
 bill.addEventListener("input", validateInput);
 numOfPeople.addEventListener("input", validateInput);
-customTip.addEventListener("input", validateInput);
+customTip.addEventListener("input", validateInputCustom);
 
 function validateInput() {
     
@@ -21,30 +21,45 @@ function validateInput() {
     "." + focusedElement.parentElement.className + " .error"
   );
 
-  //TODO errorMesagge met closest toekennen
-  
   if (focusedElement.validity.valid) {
     // In case there is an error message visible, if the field
     // is valid, remove the error message.
     errorMessage.textContent = ""; 
     errorMessage.className = "error"; // Reset the visual state of the message
 
-    // If active element is custom-tip
-    // then remove active class from tip button and add active class to custom tip
-    // Assign custom-tip value to tipPercentage
-    if(focusedElement.id == 'custom-tip') {
-      tips.forEach((val) => {
-        val.classList.remove("active");
-      });
-      focusedElement.classList.add("active");
-      tipPercentage = focusedElement.value;
-    }
-
     // Calculate tip and total per person
     calculate();
   } else {
     // If there is still an error, show the correct error
     showError(focusedElement, errorMessage);
+  }
+}
+
+function validateInputCustom() {
+
+  const errorMessage = document.querySelector(
+    "." + customTip.parentElement.parentElement.className + " .error"
+  );
+
+  if (customTip.validity.valid) {
+    // In case there is an error message visible, if the field
+    // is valid, remove the error message.
+    errorMessage.textContent = "";
+    errorMessage.className = "error"; // Reset the visual state of the message
+
+    // Remove active class from tip button and add active class to custom tip
+    // Assign custom-tip value to tipPercentage
+    tips.forEach((val) => {
+      val.classList.remove("active");
+    });
+    customTip.classList.add("active");
+    tipPercentage = customTip.value;
+
+    // Calculate tip and total per person
+    calculate();
+  } else {
+    // If there is still an error, show the correct error
+    showError(customTip, errorMessage);
   }
 }
 
@@ -57,6 +72,7 @@ tips.forEach(item => {
      // Only add active class to clicked button     
     tips.forEach((val) => {
       val.classList.remove("active");
+      customTip.classList.remove("active");
       if (element.innerHTML == val.innerHTML) {
         val.classList.add("active");
         tipPercentage = `${element.value}`;
@@ -111,7 +127,7 @@ function showError(focusedElement, errorMessage) {
   if (focusedElement.validity.valueMissing) {
     // If the field is empty,
     // display the following error message.
-    errorMessage.textContent = "You need to enter an amount.";
+    errorMessage.textContent = "Please enter an amount.";
   } else if (focusedElement.validity.badInput) {
     // If the field doesn't contain an amount in numbers,
     // display the following error message.
@@ -122,7 +138,7 @@ function showError(focusedElement, errorMessage) {
   } else if (focusedElement.validity.rangeUnderflow) {
     // If the amonut is below 0,
     // display the following error message.
-    errorMessage.textContent = `Amount should be at least ${focusedElement.min}.`;
+    errorMessage.textContent = `Value should be at least  ${focusedElement.min}.`;
   }
 }
 
