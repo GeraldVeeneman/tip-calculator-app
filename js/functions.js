@@ -6,18 +6,25 @@ const numOfPeople = document.getElementById('num-of-people');
 const tipAmount = document.getElementById('tip-amount');
 const total = document.getElementById('total');
 let tipPercentage = 0;
+const resetButton = document.getElementById('reset-button');
 
-this.addEventListener("input", function (e) {
-  // Each time the user types something in an input field, we check if the
-  // data are valid.
-  
+
+bill.addEventListener("input", validateInput);
+numOfPeople.addEventListener("input", validateInput);
+customTip.addEventListener("input", validateInput);
+
+function validateInput() {
+    
   const focusedElement = document.activeElement;
-  const errorMessage = document.querySelector('.' + focusedElement.parentElement.className + '__label > .error');
+  
+  const errorMessage = document.querySelector(
+    "." + focusedElement.parentElement.className + " .error"
+  );
   
   if (focusedElement.validity.valid) {
     // In case there is an error message visible, if the field
-    // is valid, we remove the error message.
-    errorMessage.textContent = ""; // Reset the content of the message
+    // is valid, remove the error message.
+    errorMessage.textContent = ""; 
     errorMessage.className = "error"; // Reset the visual state of the message
 
     // If active element is custom-tip
@@ -37,13 +44,16 @@ this.addEventListener("input", function (e) {
     // If there is still an error, show the correct error
     showError(focusedElement, errorMessage);
   }
-});
+}
 
-document.addEventListener("click", (e) => {
-  let element = e.target;
-  // Only add active class to clicked button
-  if (element.type == "button") {
-    tips.forEach(val => {
+// Tip buttons
+// Set active tip button, assign tip percentage and
+// calculate amounts per person
+tips.forEach(item => {
+  item.addEventListener('click', event => {
+    let element = event.target;
+     // Only add active class to clicked button     
+    tips.forEach((val) => {
       val.classList.remove("active");
       if (element.innerHTML == val.innerHTML) {
         val.classList.add("active");
@@ -51,20 +61,48 @@ document.addEventListener("click", (e) => {
       }
     });
     calculate();
+  })
+})
 
-    // Reset all form fields if reset button has been clicked
-  } else if (element.type == "reset") {
-    bill.value=0;
-    numOfPeople.value=1;
-    tipPercentage = 0;
-    tips.forEach(val => {
-      val.classList.remove("active");
-    });
-    customTip.value = "";
-    tipAmount.textContent = "$0.00";
-    total.textContent = "$0.00";
-  }
+resetButton.addEventListener("click", function () {
+  bill.value = 0;
+  numOfPeople.value=1;
+  tipPercentage = 0;
+  tips.forEach(val => {
+    val.classList.remove("active");
+  });
+  customTip.value = "";
+  tipAmount.textContent = "$0.00";
+  total.textContent = "$0.00";
 });
+
+
+// document.addEventListener("click", (e) => {
+//   let element = e.target;
+//   // Only add active class to clicked button
+//   if (element.type == "button") {
+//     tips.forEach(val => {
+//       val.classList.remove("active");
+//       if (element.innerHTML == val.innerHTML) {
+//         val.classList.add("active");
+//         tipPercentage = `${element.value}`;
+//       }
+//     });
+//     calculate();
+
+//     // Reset all form fields if reset button has been clicked
+//   } else if (element.type == "reset") {
+//     bill.value=0;
+//     numOfPeople.value=1;
+//     tipPercentage = 0;
+//     tips.forEach(val => {
+//       val.classList.remove("active");
+//     });
+//     customTip.value = "";
+//     tipAmount.textContent = "$0.00";
+//     total.textContent = "$0.00";
+//   }
+// });
 
 function showError(focusedElement, errorMessage) {
   
