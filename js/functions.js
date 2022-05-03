@@ -20,6 +20,8 @@ function validateInput() {
   const errorMessage = document.querySelector(
     "." + focusedElement.parentElement.className + " .error"
   );
+
+  //TODO errorMesagge met closest toekennen
   
   if (focusedElement.validity.valid) {
     // In case there is an error message visible, if the field
