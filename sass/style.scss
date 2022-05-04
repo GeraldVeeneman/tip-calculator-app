@@ -166,6 +166,7 @@ button {
     background-color: var(--white);
     padding: 3rem;
     border-radius: 10px;
+    box-shadow: 0 20px 50px #b2d9de;
 
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(37.5rem, 100%), 1fr));
