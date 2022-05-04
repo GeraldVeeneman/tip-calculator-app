@@ -8,10 +8,10 @@ const total = document.getElementById('total');
 let tipPercentage = 0;
 const resetButton = document.getElementById('reset-button');
 
-
 bill.addEventListener("input", validateInput);
 numOfPeople.addEventListener("input", validateInput);
 customTip.addEventListener("input", validateInputCustom);
+resetButton.addEventListener("click", reset);
 
 function validateInput(e) {
 
@@ -84,7 +84,7 @@ tips.forEach(item => {
 
 // Reset button
 // Sets all fields to default value and removes active classes from tip buttons and custom tip
-resetButton.addEventListener("click", function () {
+function reset() {
   bill.value = 0;
   numOfPeople.value=1;
   tipPercentage = 0;
@@ -95,7 +95,7 @@ resetButton.addEventListener("click", function () {
   customTip.value = "";
   tipAmount.textContent = "$0.00";
   total.textContent = "$0.00";
-});
+};
 
 
 function showError(element, errorMessage) {
