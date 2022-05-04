@@ -13,15 +13,15 @@ bill.addEventListener("input", validateInput);
 numOfPeople.addEventListener("input", validateInput);
 customTip.addEventListener("input", validateInputCustom);
 
-function validateInput() {
-    
-  const focusedElement = document.activeElement;
+function validateInput(e) {
+
+  const element = e.target;
   
   const errorMessage = document.querySelector(
-    "." + focusedElement.parentElement.className + " .error"
+    "." + element.parentElement.className + " .error"
   );
 
-  if (focusedElement.validity.valid) {
+  if (element.validity.valid) {
     // In case there is an error message visible, if the field
     // is valid, remove the error message.
     errorMessage.textContent = ""; 
@@ -31,7 +31,7 @@ function validateInput() {
     calculate();
   } else {
     // If there is still an error, show the correct error
-    showError(focusedElement, errorMessage);
+    showError(element, errorMessage);
   }
 }
 
@@ -47,7 +47,7 @@ function validateInputCustom() {
     errorMessage.textContent = "";
     errorMessage.className = "error"; // Reset the visual state of the message
 
-    // Remove active class from tip button and add active class to custom tip
+    // Remove active class from tip buttons and add active class to custom tip
     // Assign custom-tip value to tipPercentage
     tips.forEach((val) => {
       val.classList.remove("active");
@@ -81,6 +81,7 @@ tips.forEach(item => {
     calculate();
   })
 })
+
 // Reset button
 // Sets all fields to default value and removes active classes from tip buttons and custom tip
 resetButton.addEventListener("click", function () {
@@ -97,24 +98,23 @@ resetButton.addEventListener("click", function () {
 });
 
 
-function showError(focusedElement, errorMessage) {
-  
-  if (focusedElement.validity.valueMissing) {
-    // If the field is empty,
-    // display the following error message.
+function showError(element, errorMessage) {
+
+  // If a required field is empty
+  if (element.validity.valueMissing) { 
     errorMessage.textContent = "Please enter an amount.";
-  } else if (focusedElement.validity.badInput) {
-    // If the field doesn't contain an amount in numbers,
-    // display the following error message.
+
+    // If the field doesn't contain an amount in numbers
+  } else if (element.validity.badInput) {
     errorMessage.textContent = "Value needs to be a number.";
-  } else if (focusedElement.value == 0) {
-    // If the amount is 0
-    // display the following error message.
+
+    // If the amount is 0 
+  } else if (element.value == 0) {
     errorMessage.textContent = "Can't be zero.";
-  } else if (focusedElement.validity.rangeUnderflow) {
-    // If the amonut is below minimum,
-    // display the following error message.
-    errorMessage.textContent = `Value should be at least  ${focusedElement.min}.`;
+
+    // If the amonut is below minimum
+  } else if (element.validity.rangeUnderflow) {
+    errorMessage.textContent = `Value should be at least  ${element.min}.`;
   }
 }
 
